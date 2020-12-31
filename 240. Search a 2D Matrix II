@@ -1,0 +1,24 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+       for(int i=0;i<matrix.length;i++){
+           if(target<=matrix[i][matrix[i].length-1]){
+             boolean result=binarySearch(matrix[i],0,matrix[i].length-1,target);
+             if(result) return true;
+           }
+           else continue;
+       }
+        return false;
+    }
+    
+    public boolean binarySearch(int[] a,int start,int end,int target){
+        if(start>end) return false;
+        int mid=(start+end)/2;
+        if(a[mid]==target) return true;
+        else if(a[mid]<target){
+            return binarySearch(a,mid+1,end,target);
+        }
+        else{
+            return binarySearch(a,start,mid-1,target);
+        }
+    }
+}

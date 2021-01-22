@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        LinkedList<String> finallist=new LinkedList<>();
+        if(digits.length()==0) return finallist;
+        finallist.add("");
+        String[] map_char=new String[]{"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        for(int i=0;i<digits.length();i++){
+            int index=Character.getNumericValue(digits.charAt(i));
+            while(finallist.peek().length()==i){
+                String temp=finallist.remove();
+                for(char c : map_char[index].toCharArray()){
+                    finallist.add(temp+c);
+                }
+            }
+        }
+        return finallist;
+    }
+}

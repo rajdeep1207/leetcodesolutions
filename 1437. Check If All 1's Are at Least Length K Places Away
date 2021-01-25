@@ -1,0 +1,18 @@
+class Solution {
+    public boolean kLengthApart(int[] nums, int k) {
+        int count1=-1,count2=-1;
+        for(int i=0;i<nums.length;i++){
+            if(count1==-1 && nums[i]==1){
+                count1=i;
+            }
+            else if(nums[i]==1){
+                count2=i;
+                if(count2-count1-1<k){
+                    return false;
+                }
+                count1=i;
+            }
+        }
+        return true;
+    }
+}

@@ -1,43 +1,42 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int N=grid.length;
-        Deque<String> q=new ArrayDeque<>();
-        Set<String> set=new HashSet<>();
-       for(int i=0;i<N;i++){
-           for(int j=0;j<grid[i].length;j++){
+        int rows=grid.length;
+        int cols=grid[0].length;
+        Queue<int[]> q=new LinkedList<>();
+        int fresh=0;
+       for(int i=0;i<rows;i++){
+           for(int j=0;j<cols;j++){
                if(grid[i][j]==2){
-                   q.offer(""+i+j);
+                   q.offer(new int[]{i,j});
                }
                else if(grid[i][j]==1){
-                   set.add(""+i+j);
+                   fresh++;
                }
            }
        }
-        System.out.println();
-        if(!q.isEmpty() && set.size()==0) return 0;
         int[][] directories={{-1,0},{1,0},{0,1},{0,-1}};
         int mins=0;
         while(!q.isEmpty()){
             int size=q.size();
             boolean rotten=false;
             while(size-- > 0){
-                String index=q.poll();
-                int i=Character.getNumericValue(index.charAt(0));
-                int j=Character.getNumericValue(index.charAt(1));
+                int[] index=q.poll();
+                int i=index[0];
+                int j=index[1];
                 for(int[] directory : directories){
                     int finali=directory[0]+i;
                     int finalj=directory[1]+j;
-                    if(set.contains(""+finali+finalj)){
+                    if(finali>=0 && finali<rows && finalj>=0 && finalj<cols && grid[finali][finalj]==1){
                         rotten=true;
-                        set.remove(""+finali+finalj);
-                        q.offer(""+finali+finalj);
+                        fresh--;
+                        grid[finali][finalj]=2;
+                        q.offer(new int[]{finali,finalj});
                     }
                 }
             }
             if(rotten)
                 mins++;
         }
-        if(set.size()>0) return -1;
-        return mins;
+        return fresh==0?mins:-1;
     }
 }

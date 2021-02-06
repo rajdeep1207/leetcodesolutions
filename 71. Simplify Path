@@ -1,0 +1,27 @@
+import java.io.File;
+class Solution {
+    public String simplifyPath(String path) {
+        String p[]=path.split("/");
+        Deque<String> q=new ArrayDeque<>();
+        for(int i=0;i<p.length;i++){
+            if(p[i].equals("..")){
+                if(!q.isEmpty()) q.pollLast();
+            }
+            else if(p[i].equals(".")){
+               continue; 
+            }
+            else{
+                if(p[i].trim().length()>0)
+                  q.offerLast(p[i]);
+            }
+        }
+    StringBuffer f=new StringBuffer();
+    int size=q.size();
+        if(size==0) return "/";
+        while(size-- > 0){
+            f.append("/");
+            f.append(q.pollFirst());
+        }
+        return f.toString();
+    }
+}

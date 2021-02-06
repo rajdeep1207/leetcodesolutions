@@ -18,43 +18,22 @@ class Solution {
     List<Integer> list=new ArrayList<>();
     public List<Integer> rightSideView(TreeNode root) {
         if(root==null) return list;
-        Queue<TreeNode> left=new LinkedList<>(); 
-        Queue<TreeNode> right=new LinkedList<>();
-        right.offer(root.right);
-        left.offer(root.left);
-        list.add(root.val);
-        while(!left.isEmpty() || !right.isEmpty()){
-            added=false;
-            if(!right.isEmpty()){
-                right=addList("right",right);
-            }
-            if(!left.isEmpty()){
-                left=addList("left",left);
-            }
-        }
-        return list;
-    }
-    
-    public Queue<TreeNode> addList(String direction,Queue<TreeNode> q){
-        int size=q.size();
-        while(size > 0){
+        Queue<TreeNode> q=new LinkedList<>(); 
+        q.offer(root);
+        while(!q.isEmpty()){
+            int size=q.size();
+            while(size > 0){
                     TreeNode node=q.poll();
                     if(node!=null){
                     if(node.left!=null) q.offer(node.left);
                     if(node.right!=null) q.offer(node.right);
                     if(size==1){
-                      if(direction.equals("right")){  
-                        added=true;
-                        list.add(node.val);
-                      }
-                      else{
-                         if(!added)
-                             list.add(node.val);
-                      }
+                       list.add(node.val); 
                     }
                     }
                     size--;
+            }
         }
-        return q;
+        return list;
     }
 }

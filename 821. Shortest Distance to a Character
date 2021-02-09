@@ -1,0 +1,20 @@
+class Solution {
+    public int[] shortestToChar(String s, char c) {
+        int n=s.length();
+        int current_index=-n;
+        int[] path=new int[n];
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==c){
+                current_index=i;
+            }
+            path[i]=i-current_index;
+        }
+        for(int i=n-1;i>=0;i--){
+            if(s.charAt(i)==c){
+                current_index=i;
+            }
+            path[i]=Math.min(path[i],Math.abs(i-current_index));
+        }
+        return path;
+    }
+}

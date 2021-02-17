@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> letterCasePermutation(String S) {
+        LinkedList<String> q=new LinkedList<>();
+        q.offer(S);
+        for(int i=0;i<S.length();i++){
+            if(Character.isDigit(S.charAt(i))) continue;
+            int size=q.size();
+            while(size-- > 0){
+                char[] temp=q.poll().toCharArray();
+                temp[i]=Character.toLowerCase(S.charAt(i));
+                q.offer(String.valueOf(temp));
+                temp[i]=Character.toUpperCase(S.charAt(i));
+                q.offer(String.valueOf(temp));
+            }
+        }
+        return q;
+    }
+}

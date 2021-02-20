@@ -1,0 +1,20 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if(intervals==null || intervals.length<=1) return intervals;
+        Arrays.sort(intervals,(a,b)->a[0]-b[0]);
+        Deque<int[]> q=new ArrayDeque<>();
+        q.offerLast(intervals[0]);
+        for(int i=1;i<intervals.length;i++){
+            int[] a=q.pollLast();
+            if(a[1]<intervals[i][0]){
+                q.offerLast(a);
+                q.offerLast(intervals[i]);
+            }
+            else{
+                a[1]=Math.max(a[1],intervals[i][1]);
+                q.offerLast(a);
+            }
+        }
+        return q.toArray(new int[q.size()][]);
+    }
+}

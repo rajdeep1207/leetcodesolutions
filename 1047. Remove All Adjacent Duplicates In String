@@ -1,0 +1,17 @@
+class Solution {
+    public String removeDuplicates(String S) {
+        Deque<Character> stack=new ArrayDeque<>();
+        for(char ch:S.toCharArray()){
+            if(!stack.isEmpty() && stack.peekLast()==ch)
+                stack.pollLast();
+            else
+                stack.offerLast(ch);
+            
+        }
+        StringBuilder s1=new StringBuilder();
+        while(!stack.isEmpty()){
+            s1.append(stack.pollFirst());
+        }
+        return s1.toString();
+    }
+}

@@ -1,0 +1,30 @@
+class Solution {
+    class Node{
+        int count;
+        int firstIndex;
+        public Node(int count,int index){
+            this.count=count;
+            this.firstIndex=index;
+        }
+    }
+    public int firstUniqChar(String s) {
+        if(s==null || s.length()==0) return -1;
+        Map<Character,Node> map=new LinkedHashMap<>();
+        char ch[]=s.toCharArray();
+        for(int i=0;i<ch.length;i++){
+            if(map.containsKey(ch[i])){
+                Node node=map.get(ch[i]);
+                node.count++;
+            }
+            else{
+                map.put(ch[i],new Node(1,i));
+            }
+        }
+        for(Map.Entry<Character,Node> entry:map.entrySet())
+        {
+            if(entry.getValue().count==1)
+                return entry.getValue().firstIndex;
+        }
+        return -1;
+    }
+}

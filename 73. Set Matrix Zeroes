@@ -1,0 +1,36 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int[][] copyMatrix=new int[matrix.length][matrix[0].length];
+        int count=0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[i].length;j++){
+                copyMatrix[i][j]=matrix[i][j];
+                if(matrix[i][j]==0)
+                    count++;
+            }
+        }
+        for(int i=0;i<matrix.length;i++){
+            if(count==0)
+                break;
+            for(int j=0;j<matrix[i].length;j++){
+                if(count==0)
+                    break;
+                if(copyMatrix[i][j]==0){
+                    count--;
+                    int indexi=i;
+                    while(--indexi >= 0)
+                        matrix[indexi][j]=0;
+                    indexi=i;
+                    while(++indexi < matrix.length)
+                        matrix[indexi][j]=0;
+                    int indexj=j;
+                    while(--indexj >= 0)
+                        matrix[i][indexj]=0;
+                    indexj=j;
+                    while(++indexj < matrix[i].length)
+                        matrix[i][indexj]=0;
+                }
+            }
+        }
+    }
+}

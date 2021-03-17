@@ -1,0 +1,21 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list=new ArrayList<>();
+        int[] pfreq=sort(p);
+        int i=0,j=p.length();
+        while(j<=s.length()){
+            if(Arrays.equals(pfreq,sort(s.substring(i,j))))
+                list.add(i);
+            i++;
+            j++;
+        }
+        return list;
+    }
+    public int[] sort(String s){
+        char ch[]=s.toCharArray();
+        int[] freq=new int[26];
+        for(char c:ch)
+           freq[c-'a']++;
+        return freq;
+    }
+}

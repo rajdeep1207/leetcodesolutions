@@ -1,0 +1,28 @@
+class Solution {
+    public List<List<String>> displayTable(List<List<String>> orders) {
+        List<List<String>> result =new ArrayList<>();
+        Map<String,Map<String,Integer>> store=new TreeMap<>((a,b) -> Integer.valueOf(a)-Integer.valueOf(b));
+        Set<String> items=new TreeSet<>();
+        for(List<String> order:orders){
+            items.add(order.get(2));
+            Map<String,Integer> table=store.getOrDefault(order.get(1),new HashMap<String,Integer>());
+            table.put(order.get(2),table.getOrDefault(order.get(2),0)+1);
+            store.put(order.get(1),table);
+        }
+        List<String> header=new ArrayList<>();
+        header.add("Table");
+        for(String item:items){
+            header.add(item);
+        }
+        result.add(header);
+        for(Map.Entry<String,Map<String,Integer>> entry:store.entrySet()){
+            List<String> record=new ArrayList<>();
+            record.add(entry.getKey());
+            for(String item:items){
+            record.add(String.valueOf(entry.getValue().getOrDefault(item,0)));
+            }
+            result.add(record);
+        }
+        return result;
+    }
+}
